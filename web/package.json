@@ -35,13 +35,13 @@
     "rehype-katex": "^7.0.1",
     "remark-breaks": "^4.0.0",
     "remark-gfm": "^4.0.1",
-    "remark-math": "^6.0.0",
-    "sse.js": "^2.6.0",
+    "remark-math": "^6.0.0",    "sse.js": "^2.6.0",
     "unist-util-visit": "^5.0.0",
-    "use-debounce": "^10.0.4"
-  },"scripts": {
+    "use-debounce": "^10.0.4",
+    "antd": "^5.15.7"
+  },  "scripts": {
     "dev": "vite",
-    "build": "NODE_OPTIONS=\"--max_old_space_size=8192\" vite build",
+    "build": "NODE_OPTIONS=\"--max_old_space_size=16384\" vite build",
     "build:memory": "NODE_OPTIONS=\"--max_old_space_size=16384\" vite build",
     "lint": "prettier . --check",
     "lint:fix": "prettier . --write",

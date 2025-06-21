@@ -5,6 +5,11 @@ const { vitePluginSemi } = pkg;
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  resolve: {
+    alias: {
+      antd: 'antd'
+    }
+  },
   plugins: [
     {
       name: 'treat-js-files-as-jsx',
@@ -21,25 +26,30 @@ export default defineConfig({
         });
       },
     },
-    react(),
-    vitePluginSemi({
+    react(),    vitePluginSemi({
       cssLayer: true
     })
   ],
   optimizeDeps: {
     force: true,
+    include: ['antd', '@lobehub/icons'],
     esbuildOptions: {
       loader: {
         '.js': 'jsx',
         '.json': 'json',
       },
     },
-  },  build: {
+  },
+  build: {
     rollupOptions: {
+      maxParallelFileOps: 2,
+      external: [],
       output: {
         manualChunks: {
           'react-core': ['react', 'react-dom', 'react-router-dom'],
           'semi-ui': ['@douyinfe/semi-icons', '@douyinfe/semi-ui'],
+          'antd': ['antd'],
+          'lobehub-icons': ['@lobehub/icons'],
           visactor: ['@visactor/react-vchart', '@visactor/vchart'],
           tools: ['axios', 'history', 'marked'],
           'react-components': [
@@ -67,29 +77,6 @@ export default defineConfig({
     },
     // 减少并发数以降低内存使用
     chunkSizeWarningLimit: 1000,
-    rollupOptions: {
-      maxParallelFileOps: 2,
-      output: {
-        manualChunks: {
-          'react-core': ['react', 'react-dom', 'react-router-dom'],
-          'semi-ui': ['@douyinfe/semi-icons', '@douyinfe/semi-ui'],
-          visactor: ['@visactor/react-vchart', '@visactor/vchart'],
-          tools: ['axios', 'history', 'marked'],
-          'react-components': [
-            'react-dropzone',
-            'react-fireworks',
-            'react-telegram-login',
-            'react-toastify',
-            'react-turnstile',
-          ],
-          i18n: [
-            'i18next',
-            'react-i18next',
-            'i18next-browser-languagedetector',
-          ],
-        },
-      },
-    },
   },
   server: {
     host: '0.0.0.0',
