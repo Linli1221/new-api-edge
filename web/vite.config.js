@@ -29,8 +29,7 @@ export default defineConfig({
     react(),    vitePluginSemi({
       cssLayer: true
     })
-  ],
-  optimizeDeps: {
+  ],  optimizeDeps: {
     force: true,
     include: ['antd', '@lobehub/icons'],
     esbuildOptions: {
@@ -65,15 +64,11 @@ export default defineConfig({
             'i18next-browser-languagedetector',
           ],
         },
-      },
-    },
-    // 增加内存优化配置
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-      },
+      },    },
+    // 使用 esbuild 压缩，比 terser 更快且内存使用更少
+    minify: 'esbuild',
+    esbuild: {
+      drop: ['console', 'debugger'],
     },
     // 减少并发数以降低内存使用
     chunkSizeWarningLimit: 1000,
