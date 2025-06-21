@@ -1,0 +1,13 @@
+[install]
+# 缓存配置优化
+cache = true
+optional = true
+production = false
+
+[run]
+# 内存优化
+env = { NODE_OPTIONS = "--max_old_space_size=8192" }
+
+[build]
+# 构建优化
+minify = true

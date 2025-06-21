@@ -5,6 +5,8 @@ COPY web/package.json .
 RUN bun install
 COPY ./web .
 COPY ./VERSION .
+# 增加内存限制和使用更高效的构建命令
+ENV NODE_OPTIONS="--max_old_space_size=8192"
 RUN DISABLE_ESLINT_PLUGIN='true' VITE_REACT_APP_VERSION=$(cat VERSION) bun run build
 
 FROM golang:alpine AS builder2

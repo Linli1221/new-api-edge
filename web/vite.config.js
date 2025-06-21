@@ -34,9 +34,41 @@ export default defineConfig({
         '.json': 'json',
       },
     },
-  },
-  build: {
+  },  build: {
     rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-core': ['react', 'react-dom', 'react-router-dom'],
+          'semi-ui': ['@douyinfe/semi-icons', '@douyinfe/semi-ui'],
+          visactor: ['@visactor/react-vchart', '@visactor/vchart'],
+          tools: ['axios', 'history', 'marked'],
+          'react-components': [
+            'react-dropzone',
+            'react-fireworks',
+            'react-telegram-login',
+            'react-toastify',
+            'react-turnstile',
+          ],
+          i18n: [
+            'i18next',
+            'react-i18next',
+            'i18next-browser-languagedetector',
+          ],
+        },
+      },
+    },
+    // 增加内存优化配置
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+      },
+    },
+    // 减少并发数以降低内存使用
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      maxParallelFileOps: 2,
       output: {
         manualChunks: {
           'react-core': ['react', 'react-dom', 'react-router-dom'],
